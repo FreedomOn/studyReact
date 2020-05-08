@@ -1,22 +1,27 @@
 import React from 'react';
 //=>从react-dom中导入一个reactDom,逗号后面的内容是吧reactDom这个对象进行节解构
 import ReactDom ,{render} from 'react-dom';
-
+import Dialog from '../src/component/Dialog.js';
+//引入外部的js 需要加引号 引入
+// import '../src/text/self-jsx.js';
 let root = document.querySelector("#root")
 
-// ReactDom.render(<div  style={{color:'red'}}> 
-//   <h1>我是标题</h1>
-//   </div>,root)
-let styleObj = {
-  color:"red"
-}
-render(<h1 id="titlebox" className="titlle" style={styleObj}>
-  hahaha 
-  </h1>,root)
+ReactDom.render(<div> 
+    {/* jsx中调取组件，只需要把组件当做一个标签调取使用即可 */}
+    <Dialog con='哈哈哈'></Dialog>
+    {/* 属性值不是字符串，我们需要使用大括号包起来 */}
+    <Dialog con='呵呵呵' lx={1}/>
+</div>,root)
 /*
-  JSX渲染机制
-    1.基于babel中的语法解析模块（babel-preset-react）把JSX编译为creatElement(...)结构；
-    2.执行react.creatElement(type,props,children),创建一个对象(虚拟DOM)；
-    3.ReactDom.render(jsx语法最后生成的对象，容器)，基于render方法把生成的对象动态创建为dom元素
-      插入到制定的容器中。
+  react 组件
+    按照 组件/模块管理 的方式来构建程序的，也就是把一个程序划分一个个的组件来单独处理。
+  优势：
+     1.有助于对人协作开发
+     2.我们开发的组件可以被复用
+  react中创建组件有两种方式
+     函数声明式组件
+     基于集成component类来创建组件 
+  src -> component :这个文件夹中存放的就是开发组件
+
 */ 
+
