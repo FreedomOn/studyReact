@@ -9,17 +9,86 @@ import ReactDom  from 'react-dom';
       webpack会把所有的组件都编译在一起，index是主入口；
     2.导入bootstrap，需要导入的不经过压缩处理的文件，否则无法编译，以后都使用ant
 */ 
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.css'  //bootstrap样式插件
 //引入外部的js 需要加引号 引入
 // import ReactDom ,{render} from 'react-dom';
 // import Dialog from '../src/component/Dialog.js';
 // import '../src/text/self-jsx.js';
-
+// import ReactSwipe from 'react-swipe'; //引入的轮播图插件
+// import Vote from './component/Vote/Vote.js'  //投票案例
+import Vote from './component/smileReduxCase/Vote/Vote.js'  //redux案例
 let root = document.querySelector("#root")
 
-ReactDom.render(<div>
 
+// redux的使用//////===========================================================================
+// 全局下挂载一个容器来实现信息的共享和通信   跟redux无关 加；是压缩时代码隔开
+let myRedux = (function anonymous(){
+    let stateObj = {},
+        listenAry = [];
+    function updateState(callBack){
+        // callBack：这个回调函数中一定是修改并且返回最新的状态信息的,用返回的状态信息替换原有的状态信息
+        let newObj = callBack(stateObj);
+        stateObj = {...stateObj,...newObj};
+        // 当状态更改，通知计划表中的方法执行
+        listenAry.forEach(item=>{
+            if(typeof item ==='function'){
+                item()
+            }
+        })
+    }
+    function getState(){
+        return stateObj;
+    }
+    function subScrube(fn){
+        for(let i =0;i<listenAry.length;i++){
+            let item = listenAry[i]
+            if(item === fn){
+                return
+            }
+        }
+        listenAry.push(fn)
+    }
+    return{
+        updateState,
+        getState,
+        subScrube
+    }
+})();
+
+// 组件之间的信息传递--》投票=================================================================
+ReactDom.render(<div>
+    {/* title是标题  count是初始支持人数 */}
+    <Vote title = {'电竞春晚RngVSiG'} 
+          count = {{ 
+            n:88,
+            m:99}
+          }
+          myRedux = {myRedux}
+    ></Vote>
 </div>,root)
+//轮播图===================================插件==============================================
+// const Carousel = () => {
+//     let reactSwipeEl;
+  
+//     return (
+//       <div>
+//         <ReactSwipe
+//           className="carousel"
+//           swipeOptions={{ continuous: false }}
+//           ref={el => (reactSwipeEl = el)}
+//         >
+//           <div>PANE 1</div>
+//           <div>PANE 2</div>
+//           <div>PANE 3</div>
+//         </ReactSwipe>
+//         <button onClick={() => reactSwipeEl.next()}>Next</button>
+//         <button onClick={() => reactSwipeEl.prev()}>Previous</button>
+//       </div>
+//     );
+//   };
+// ReactDom.render(<div>
+//     <Carousel />
+// </div>,root)
 // 组件之间的信息传递=================================================================================
 // 父组件把信息传递给子组件=>基于属性传递即可(传递是单方向的，只能父亲把信息给儿子)
 // 后期子组件的信息修改，可以让父组件传递给子组件的信息发生变化(也就是子组件接收的属性发生变化)
