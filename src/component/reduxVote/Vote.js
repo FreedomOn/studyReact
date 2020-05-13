@@ -14,21 +14,14 @@ export default class Vote extends React.Component{
     constructor(props){
         super(props)
         this.state = {}
-        // 进来第一件事先把容器中的信息改了
-        let {count:{n,m},myRedux} = this.props;
-        this.props.myRedux.updateState(state => {
-            return{
-                ...state,
-                n,
-                m
-            }
-        })
     }
     render(){
+        let {store} = this.props;
+        console.log(store,'哈哈哈')
         return <section className={'panel panel-default'} style={{width:'600px',margin:'0 auto'}}>
             <VoteHead title = {this.props.title}></VoteHead>
-            <VoteBody myRedux = {this.props.myRedux}></VoteBody>
-            <VoteFooter myRedux = {this.props.myRedux}></VoteFooter>
+            <VoteBody store={store}></VoteBody>
+            <VoteFooter store={store}></VoteFooter>
         </section>
     }
 }

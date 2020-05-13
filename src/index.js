@@ -1,6 +1,7 @@
 import React from 'react';
 //=>从react-dom中导入一个reactDom,逗号后面的内容是吧reactDom这个对象进行节解构
 import ReactDom  from 'react-dom';
+import store from './store'  //导入工程化的store
 // propTypes是facebook开发的一个插件，基于这个插件可以给组件传递的属性设置规则
 // 安装命令   yarn add prop-types
 // import propTypes from 'prop-types';
@@ -16,56 +17,102 @@ import 'bootstrap/dist/css/bootstrap.css'  //bootstrap样式插件
 // import '../src/text/self-jsx.js';
 // import ReactSwipe from 'react-swipe'; //引入的轮播图插件
 // import Vote from './component/Vote/Vote.js'  //投票案例
-import Vote from './component/smileReduxCase/Vote/Vote.js'  //redux案例
+// import Vote from './component/smileReduxCase/Vote/Vote.js'  //redux 封装myrudux案例
+import Vote from './component/reduxVote/Vote.js'  //redux 安装redux案例
 let root = document.querySelector("#root")
 
-
-// redux的使用//////===========================================================================
-// 全局下挂载一个容器来实现信息的共享和通信   跟redux无关 加；是压缩时代码隔开
-let myRedux = (function anonymous(){
-    let stateObj = {},
-        listenAry = [];
-    function updateState(callBack){
-        // callBack：这个回调函数中一定是修改并且返回最新的状态信息的,用返回的状态信息替换原有的状态信息
-        let newObj = callBack(stateObj);
-        stateObj = {...stateObj,...newObj};
-        // 当状态更改，通知计划表中的方法执行
-        listenAry.forEach(item=>{
-            if(typeof item ==='function'){
-                item()
-            }
-        })
-    }
-    function getState(){
-        return stateObj;
-    }
-    function subScrube(fn){
-        for(let i =0;i<listenAry.length;i++){
-            let item = listenAry[i]
-            if(item === fn){
-                return
-            }
-        }
-        listenAry.push(fn)
-    }
-    return{
-        updateState,
-        getState,
-        subScrube
-    }
-})();
-
-// 组件之间的信息传递--》投票=================================================================
 ReactDom.render(<div>
-    {/* title是标题  count是初始支持人数 */}
+    {/* title是标题  count是初始支持人数 store传进去*/}
     <Vote title = {'电竞春晚RngVSiG'} 
-          count = {{ 
-            n:88,
-            m:99}
-          }
-          myRedux = {myRedux}
+          store = {store}
     ></Vote>
 </div>,root)
+
+// redux 在index页面使用 简洁版、、、、、、、、、、=============================================
+// import {createStore} from 'redux'   //导入redux
+// 创建容器，需要把reducer传递进来(记录了所有状态的更改信息)
+// let reducer = (state = {n:0,m:0},action) =>{
+//     /* reducer的作用 1。记录了所有状态修改的信息(根据行为表示走不同的修改任务)
+//                      2.修改容器中的状态信息
+//        参数：
+//        state：容器中原有的状态信息(如果第一次使用，没有原有状态，给一个初始默认值)
+//        action:dispatch任务派发的时候传递的行为对象(这个对象中必有一个type属性，是操作的行为标识
+//                renducer就是根据这个行为标识来识别该如何修改状态信息)
+//     */
+//     //根据不同的标识 把状态进行更改 
+//    switch(action.type){
+//         case 'VOTE_SUPPPORT':
+//             state = {...state,n:state.n+1} //拿到原有的所有信息 再把其中的n在原有基础上加1
+//             break;
+//         case 'VOTE_AGAINST':
+//             state = {...state,m:state.m+1}
+//             break;
+//         default:
+//             break;
+//    }
+//    return state;//只有把最新的state返回，原有的状态才会修改
+// }
+// let store = createStore(reducer);
+/*
+    创建store中提供三个方法
+    dispatch:派发行为(传递一个对象，对象中有一个type属性，通知reducer修改状态信息)
+    subscribe:事件池追加方法 
+    getState：获取最新管理的状态信息
+*/ 
+// let root = document.querySelector("#root")
+
+// ReactDom.render(<div>
+//     {/* title是标题  count是初始支持人数 store传进去*/}
+//     <Vote title = {'电竞春晚RngVSiG'} 
+//           store = {store}
+//     ></Vote>
+// </div>,root)
+// redux的使用//////===========================================================================
+// 全局下挂载一个容器来实现信息的共享和通信   跟redux无关 
+// let myRedux = (function anonymous(){
+//     let stateObj = {},
+//         listenAry = [];
+//     function updateState(callBack){
+//         // callBack：这个回调函数中一定是修改并且返回最新的状态信息的,用返回的状态信息替换原有的状态信息
+//         let newObj = callBack(stateObj);
+//         stateObj = {...stateObj,...newObj};
+//         // 当状态更改，通知计划表中的方法执行
+//         listenAry.forEach(item=>{
+//             if(typeof item ==='function'){
+//                 item()
+//             }
+//         })
+//     }
+//     function getState(){
+//         return stateObj;
+//     }
+//     function subScrube(fn){
+//         for(let i =0;i<listenAry.length;i++){
+//             let item = listenAry[i]
+//             if(item === fn){
+//                 return
+//             }
+//         }
+//         listenAry.push(fn)
+//     }
+//     return{
+//         updateState,
+//         getState,
+//         subScrube
+//     }
+// })();
+
+// 组件之间的信息传递--》投票=================================================================
+// ReactDom.render(<div>
+//     {/* title是标题  count是初始支持人数 */}
+//     <Vote title = {'电竞春晚RngVSiG'} 
+//           count = {{ 
+//             n:88,
+//             m:99}
+//           }
+//           myRedux = {myRedux}
+//     ></Vote>
+// </div>,root)
 //轮播图===================================插件==============================================
 // const Carousel = () => {
 //     let reactSwipeEl;
