@@ -2,6 +2,15 @@ import React from 'react';
 //=>从react-dom中导入一个reactDom,逗号后面的内容是吧reactDom这个对象进行节解构
 import ReactDom  from 'react-dom';
 import store from './store'  //导入工程化的store
+/*
+    react-redux是把redux进一步封装，适配react项目，让redux操作更简单
+        store文件夹的内容和redux一模一样
+        在组件调取使用的时候，可以优化一些步骤
+        1.Provider  跟组件
+            当前整个项目都在Provider组件下，作用就是把创建的store供任何后代组件使用
+        2.connect 高阶组件
+*/ 
+import {Provider,connect} from 'react-redux'
 // propTypes是facebook开发的一个插件，基于这个插件可以给组件传递的属性设置规则
 // 安装命令   yarn add prop-types
 // import propTypes from 'prop-types';
@@ -18,15 +27,28 @@ import 'bootstrap/dist/css/bootstrap.css'  //bootstrap样式插件
 // import ReactSwipe from 'react-swipe'; //引入的轮播图插件
 // import Vote from './component/Vote/Vote.js'  //投票案例
 // import Vote from './component/smileReduxCase/Vote/Vote.js'  //redux 封装myrudux案例
-import Vote from './component/reduxVote/Vote.js'  //redux 安装redux案例
+// import Vote from './component/reduxVote/Vote.js'  //redux 安装redux案例
+import VoteBase from '../src/component/textVote/VoteBase'
+import VoteHandle from '../src/component/textVote/VoteHandle'
 let root = document.querySelector("#root")
 
-ReactDom.render(<div>
-    {/* title是标题  count是初始支持人数 store传进去*/}
-    <Vote title = {'电竞春晚RngVSiG'} 
-          store = {store}
-    ></Vote>
-</div>,root)
+// 复习使用redux==============================================================
+        let styleObj = {
+            width:'60%',
+            margin:'20px auto'
+        }
+ReactDom.render(<section className="panel oanel-default" style={styleObj}>
+    <VoteBase  store = {store}></VoteBase>
+    <VoteHandle  store = {store}></VoteHandle>
+</section>,root)
+
+// 使用redux 工程化 使用======================================================
+// ReactDom.render(<div>
+//     {/* title是标题  count是初始支持人数 store传进去*/}
+//     <Vote title = {'电竞春晚RngVSiG'} 
+//           store = {store}
+//     ></Vote>
+// </div>,root)
 
 // redux 在index页面使用 简洁版、、、、、、、、、、=============================================
 // import {createStore} from 'redux'   //导入redux

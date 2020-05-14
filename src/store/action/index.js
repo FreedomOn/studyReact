@@ -9,8 +9,10 @@
 */ 
 import vote from './Vote';
 import person from './Person';
+import textVote from './textVote'
 let action = {
     vote,
-    person
+    person,
+    textVote
 }
 export default action;

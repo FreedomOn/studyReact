@@ -4,6 +4,9 @@
 // vote  一般标识名和值的名是一样的
 export const VOTE_SUPPORT = 'VOTE_SUPPORT' 
 export const VOTE_AGAINST = 'VOTE_AGAINST' 
-
 // PERSONAL
 export const PERSONAL_INIT = 'PERSONAL_INIT' 
+// textVote
+export const TEXTVOTE_INIT = 'TEXTVOTE_INIT' //数据初始化
+export const TEXTVOTE_SUPPORT = 'TEXTVOTE_SUPPORT'
+export const TEXTVOTE_AGAINST = 'TEXTVOTE_AGAINST'
