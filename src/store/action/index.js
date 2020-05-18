@@ -10,9 +10,12 @@
 import vote from './Vote';
 import person from './Person';
 import textVote from './textVote'
+// todo
+import todo from './todo'
 let action = {
     vote,
     person,
-    textVote
+    textVote,
+    todo
 }
 export default action;

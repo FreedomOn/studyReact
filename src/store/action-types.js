@@ -10,3 +10,7 @@ export const PERSONAL_INIT = 'PERSONAL_INIT'
 export const TEXTVOTE_INIT = 'TEXTVOTE_INIT' //数据初始化
 export const TEXTVOTE_SUPPORT = 'TEXTVOTE_SUPPORT'
 export const TEXTVOTE_AGAINST = 'TEXTVOTE_AGAINST'
+// TODO  
+export const TODO_ADD = 'TODO_ADD';
+export const TODO_FILTER = 'TODO_FILTER';
+export const TODO_UPDATE_STATE = 'TODO_UPDATE_STATE'; //更新状态

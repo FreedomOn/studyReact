@@ -10,7 +10,8 @@ import store from './store'  //导入工程化的store
             当前整个项目都在Provider组件下，作用就是把创建的store供任何后代组件使用
         2.connect 高阶组件
 */ 
-import {Provider,connect} from 'react-redux'
+// import {Provider,connect} from 'react-redux'
+import {Provider} from 'react-redux'
 // propTypes是facebook开发的一个插件，基于这个插件可以给组件传递的属性设置规则
 // 安装命令   yarn add prop-types
 // import propTypes from 'prop-types';
@@ -20,6 +21,7 @@ import {Provider,connect} from 'react-redux'
     2.导入bootstrap，需要导入的不经过压缩处理的文件，否则无法编译，以后都使用ant
 */ 
 import 'bootstrap/dist/css/bootstrap.css'  //bootstrap样式插件
+import '../src/static/less/todo.less'   //导入todo样式
 //引入外部的js 需要加引号 引入
 // import ReactDom ,{render} from 'react-dom';
 // import Dialog from '../src/component/Dialog.js';
@@ -28,19 +30,30 @@ import 'bootstrap/dist/css/bootstrap.css'  //bootstrap样式插件
 // import Vote from './component/Vote/Vote.js'  //投票案例
 // import Vote from './component/smileReduxCase/Vote/Vote.js'  //redux 封装myrudux案例
 // import Vote from './component/reduxVote/Vote.js'  //redux 安装redux案例
-import VoteBase from '../src/component/textVote/VoteBase'
-import VoteHandle from '../src/component/textVote/VoteHandle'
+// import VoteBase from '../src/component/textVote/VoteBase'
+// import VoteHandle from '../src/component/textVote/VoteHandle'
+import Head from './component/Todo/Head'     //todo组件
+import Body from './component/Todo/Body'     //todo组件
+import Footer from './component/Todo/Footer' //todo组件
 let root = document.querySelector("#root")
 
+// todo 案例====================================================================
+ReactDom.render(<Provider store={store}>
+    <main className="panel panel-default">
+        <Head></Head>
+        <Body></Body>
+        <Footer></Footer>
+    </main>
+</Provider>,root)
 // 复习使用redux==============================================================
-        let styleObj = {
-            width:'60%',
-            margin:'20px auto'
-        }
-ReactDom.render(<section className="panel oanel-default" style={styleObj}>
-    <VoteBase  store = {store}></VoteBase>
-    <VoteHandle  store = {store}></VoteHandle>
-</section>,root)
+//         let styleObj = {
+//             width:'60%',
+//             margin:'20px auto'
+//         }
+// ReactDom.render(<section className="panel oanel-default" style={styleObj}>
+//     <VoteBase  store = {store}></VoteBase>
+//     <VoteHandle  store = {store}></VoteHandle>
+// </section>,root)
 
 // 使用redux 工程化 使用======================================================
 // ReactDom.render(<div>
