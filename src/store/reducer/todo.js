@@ -26,6 +26,11 @@ export default function todo(state={
                 item.state = newState;
             }
             break;
+        case TYPES.TODO_DELETE:
+            // 删除指定任务
+            let {taskId:taskId_del} = action;
+            state.data = state.data.filter(item=>item.id !== taskId_del)
+            break;
         default:
             break;
 

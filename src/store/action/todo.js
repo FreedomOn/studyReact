@@ -22,6 +22,13 @@ let todo = {
             taskId,  //哪一个
             newState //新的状态
         }
+    },
+    // 删除指定任务信息
+    remove(taskId){
+        return {
+            type:TYPES.TODO_DELETE,
+            taskId
+        };
     }
 }
 export default todo

@@ -33,7 +33,14 @@ class Body extends React.Component{
                             this.props.updateState(id,newState)
                         }}/>
                         <span className = {state ===1 ? 'complete':''}>{name}</span>
-                        <a href="#!" className='btn-danger'>删</a>
+                        <a href="#!" className='btn-danger' onClick = {
+                            ev=>{
+                                let isOK = window.confirm('一但删除将不能还原，确定删除？')
+                                if(isOK){
+                                    this.props.remove(id)
+                                }
+                            }
+                        }>删</a>
                     </li>
                 })}
            </ul>

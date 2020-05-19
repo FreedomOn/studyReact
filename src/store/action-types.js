@@ -14,3 +14,4 @@ export const TEXTVOTE_AGAINST = 'TEXTVOTE_AGAINST'
 export const TODO_ADD = 'TODO_ADD';
 export const TODO_FILTER = 'TODO_FILTER';
 export const TODO_UPDATE_STATE = 'TODO_UPDATE_STATE'; //更新状态
+export const TODO_DELETE = 'TODO_DELETE'; //删除
