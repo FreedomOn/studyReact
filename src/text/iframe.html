@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body,.mainBox{
+            height: 100%;
+            overflow: hidden;
+        }
+        .headerBox{
+            height: 10%;
+            background-color: lawngreen;
+        }
+        .container{
+            height: 90%;
+        }
+        .menuNav{
+            float: left;
+            height: 100%;
+            width: 10%;
+            background-color: lightskyblue;
+        }
+        .menuNav a{
+            display: block;
+            line-height: 35px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .iframeBox{
+            width: 90%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <main class="mainBox">
+        <header class="headerBox">
+            我是公共头部
+        </header>
+        <section class="container">
+            <nav class="menuNav">
+                <a href="!#">百度</a>
+                <a href="!#">京东</a>
+                <a href="!#">腾讯</a>
+            </nav>
+            <iframe src="https://www.baidu.com" class="iframeBox"></iframe>
+        </section>
+    </main>
+    <script>
+        let menuNav = document.querySelectorAll('.menuNav a')
+    </script>
+</body>
+</html>

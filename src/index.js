@@ -1,7 +1,7 @@
 import React from 'react';
 //=>从react-dom中导入一个reactDom,逗号后面的内容是吧reactDom这个对象进行节解构
 import ReactDom  from 'react-dom';
-import store from './store'  //导入工程化的store
+// import store from './store'  //导入工程化的store
 /*
     react-redux是把redux进一步封装，适配react项目，让redux操作更简单
         store文件夹的内容和redux一模一样
@@ -11,7 +11,7 @@ import store from './store'  //导入工程化的store
         2.connect 高阶组件
 */ 
 // import {Provider,connect} from 'react-redux'
-import {Provider} from 'react-redux'
+// import {Provider} from 'react-redux'
 // propTypes是facebook开发的一个插件，基于这个插件可以给组件传递的属性设置规则
 // 安装命令   yarn add prop-types
 // import propTypes from 'prop-types';
@@ -32,19 +32,123 @@ import '../src/static/less/todo.less'   //导入todo样式
 // import Vote from './component/reduxVote/Vote.js'  //redux 安装redux案例
 // import VoteBase from '../src/component/textVote/VoteBase'
 // import VoteHandle from '../src/component/textVote/VoteHandle'
-import Head from './component/Todo/Head'     //todo组件
-import Body from './component/Todo/Body'     //todo组件
-import Footer from './component/Todo/Footer' //todo组件
+// import Head from './component/Todo/Head'     //todo组件
+// import Body from './component/Todo/Body'     //todo组件
+// import Footer from './component/Todo/Footer' //todo组件
+// 使用react路由实现spa
+import {HashRouter,Route,Switch,Redirect} from 'react-router-dom'
+/*
+    BrowserRouter vs  HashRouter
+    是两种常用的理由实现思想，BrowserRouter浏览器路由 HashRouter哈希路由
+    BrowserRouter：
+        它是基于H5中的history API 来保持UI和URL同步(真实项目中应用的不多,一般只有当前项目
+         是基于服务器渲染的，我们才会使用浏览器路由)
+    HashRouter
+        真实项目中：前后端分离的项目,客户端渲染，我们经常使用的是哈希来完成的，它依据相同的
+        页面地址，不通过的哈希值，来规划当前项目中的哪一个组件呈现渲染，他基于原生JS构造了一套
+        类似于history API的机制，每一次路由切换都是基于history stack完成的
+    HashRouter的应用
+    HashRouter的特点
+        1.当前项目一旦使用HashRouter，则默认在页面地址后加上'#/',也就是hash默认值是一个斜杠
+          我们一般让其显示首页组件
+        2.HashRouter中只能出现一个子元素
+        3.HashRouter机制中，我们需要根据哈希地址不同，展示不容的组件内容，我们需要使用route
+    route
+        path：设置匹配地址，但是不是严格匹配，当前页面哈希地址只要包含完整的它(内容是不变的)
+              都能够匹配到
+              path='/' :和它匹配的地址只要有斜杠即可
+              path='/user': '#/user/login'也可以匹配 但是'#/user2'无法匹配
+        component: 一旦哈希值和当前route的path相同了，则渲染component指定的组件
+        exact：让path的匹配严谨一些(只有url哈希值和path设定的值相等才可以匹配得到)
+        render:当页面的哈希地址和path匹配，会把render规划的方法执行，在方法中一般做'权限校验'
+                (渲染组件之前验证是否存在权限，不存在做一些特殊处理)
+        默认情况下，会和每一个route都做校验,Switch组件可以解决这个问题，和switch case一样
+        只要一种情况校验成功，就不在向后校验了
+*/ 
+// import A from './component/routerText/A.js'
+// import B from './component/routerText/B.js'
+// import C from './component/routerText/C.js'
 let root = document.querySelector("#root")
 
+ReactDom.render(<HashRouter>
+    
+</HashRouter>,root)
+//react路由基础知识总结=========================================================
+// ReactDom.render(<HashRouter>
+//     <div>
+//         <Switch>
+//             <Route path='/' exact component = {A}></Route>
+//             <Route path='/b' component = {B}></Route>
+//             <Route path='/pay' render={()=>{
+//                 // 一般在render中做路由权限处理
+//                 let flag = localStorage.getItem('flag');
+//                 if(flag && flag ==='safe'){
+//                     return <C></C>
+//                 }
+//                 return '当前环境不安全，不利于支付'
+//             }}></Route>
+//             {/* 上述都设置完成后，会在末尾设置一个匹配：以上都不匹配，是非法地址，做特殊处理 */}
+//             {/* <Route render= {()=>{
+//                 return <div>404</div>
+//             }}></Route> */}
+//             {/* 也可以基于redirect进行重定向
+//                    to string:重新定向新的地址*
+//                    to object:重新定向新的地址，只不过指定了更多的信息
+//                    {
+//                        pathname：定向的地址
+//                        search：给定向的地址问号传参
+//                        state：给定向后的组件传递一些信息
+//                    }
+//                    push:如果设置了这个属性，当前跳转的地址会加入到history.stack中的一条记录
+//                    from：设定当前来源的页面地址
+//                    eg： <Redirect from='/custom' to='/custom/list'></Redirect>
+//                     解释：如果当前请求的hash地址是'/custom' 我们让其重定向'/custom/list'
+//              /}
+//             {/* 重新定向到首页 */}
+//             <Redirect to='/?lx=404'></Redirect>
+//         </Switch>  
+//     </div>
+// </HashRouter>,root)  
+// react 单向数据流绑定原理===================================================================================================
+// class A extends React.Component{
+//     state = {
+//         name:'aa'
+//     }
+//     render(){
+//         let { name } = this.state
+//         return <div>
+//             姓名<span>{name}</span>
+//             <br></br>
+//             <input type='text' value = {name}
+//              onChange = {
+//                  ev=>{
+//                      this.setState({
+//                          name:ev.target.value
+//                      })
+//                  }
+//              }
+//             ></input>
+//         </div>
+//     }
+//     componentDidMount(){
+//         setTimeout(()=>{
+//             this.setState({
+//                     name:'哈哈哈'
+//                 })
+//             },100)
+//         }
+//     }    
+//     ReactDom.render(<div>
+//     <A></A>
+// </div>,root)   
 // todo 案例====================================================================
-ReactDom.render(<Provider store={store}>
-    <main className="panel panel-default">
-        <Head></Head>
-        <Body></Body>
-        <Footer></Footer>
-    </main>
-</Provider>,root)
+// ReactDom.render(<Provider store={store}>
+//     <main className="panel panel-default">
+//         <Head></Head>
+//         <Body></Body>
+//         <Footer></Footer>
+//     </main>
+// </Provider>,root)
 // 复习使用redux==============================================================
 //         let styleObj = {
 //             width:'60%',
