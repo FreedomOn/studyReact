@@ -7,7 +7,7 @@ class Plan extends React.Component{
     }
     render(){
         return <section>
-           
+           我是计划管理也plan
         </section>
     }
 }

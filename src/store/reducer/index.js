@@ -23,6 +23,7 @@ import person from './Person';
 import textVote from './textVote'
 // todo的reducer
 import todo from './todo'  
+import custom from './custom'  
 /*
     合并reducer的时候，为了保证每一个板块管理的状态信息不冲突，
     在redux中按照指定的名称单独划分板块的状态
@@ -31,7 +32,8 @@ let reducer = combineReducers({
     vote,
     person,
     textVote,
-    todo
+    todo,
+    custom
 })
 // 导出
 export default reducer;

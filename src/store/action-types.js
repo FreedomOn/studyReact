@@ -15,3 +15,5 @@ export const TODO_ADD = 'TODO_ADD';
 export const TODO_FILTER = 'TODO_FILTER';
 export const TODO_UPDATE_STATE = 'TODO_UPDATE_STATE'; //更新状态
 export const TODO_DELETE = 'TODO_DELETE'; //删除
+// CRM 路由
+export const CUSTOM_CREATE = 'CUSTOM_CREATE';//创建用户

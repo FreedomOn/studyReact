@@ -1,41 +1,13 @@
 import React from 'react';
 //=>从react-dom中导入一个reactDom,逗号后面的内容是吧reactDom这个对象进行节解构
 import ReactDom  from 'react-dom';
-// import store from './store'  //导入工程化的store
+import store from './store'  //导入工程化的store
 /*
-    react-redux是把redux进一步封装，适配react项目，让redux操作更简单
-        store文件夹的内容和redux一模一样
-        在组件调取使用的时候，可以优化一些步骤
         1.Provider  跟组件
             当前整个项目都在Provider组件下，作用就是把创建的store供任何后代组件使用
         2.connect 高阶组件
 */ 
-// import {Provider,connect} from 'react-redux'
-// import {Provider} from 'react-redux'
-// propTypes是facebook开发的一个插件，基于这个插件可以给组件传递的属性设置规则
-// 安装命令   yarn add prop-types
-// import propTypes from 'prop-types';
-/*
-    1.我们一般吧程序中的公共样式放到index.js导入，这样再其他文件中也可以使用了，
-      webpack会把所有的组件都编译在一起，index是主入口；
-    2.导入bootstrap，需要导入的不经过压缩处理的文件，否则无法编译，以后都使用ant
-*/ 
-import 'bootstrap/dist/css/bootstrap.css'  //bootstrap样式插件
-import '../src/static/less/todo.less'   //导入todo样式
-//引入外部的js 需要加引号 引入
-// import ReactDom ,{render} from 'react-dom';
-// import Dialog from '../src/component/Dialog.js';
-// import '../src/text/self-jsx.js';
-// import ReactSwipe from 'react-swipe'; //引入的轮播图插件
-// import Vote from './component/Vote/Vote.js'  //投票案例
-// import Vote from './component/smileReduxCase/Vote/Vote.js'  //redux 封装myrudux案例
-// import Vote from './component/reduxVote/Vote.js'  //redux 安装redux案例
-// import VoteBase from '../src/component/textVote/VoteBase'
-// import VoteHandle from '../src/component/textVote/VoteHandle'
-// import Head from './component/Todo/Head'     //todo组件
-// import Body from './component/Todo/Body'     //todo组件
-// import Footer from './component/Todo/Footer' //todo组件
-// 使用react路由实现spa
+import {Provider} from 'react-redux'
 import {HashRouter,Route,Switch,Redirect} from 'react-router-dom'
 /*
     BrowserRouter vs  HashRouter
@@ -65,14 +37,58 @@ import {HashRouter,Route,Switch,Redirect} from 'react-router-dom'
         默认情况下，会和每一个route都做校验,Switch组件可以解决这个问题，和switch case一样
         只要一种情况校验成功，就不在向后校验了
 */ 
+// propTypes是facebook开发的一个插件，基于这个插件可以给组件传递的属性设置规则
+// 安装命令   yarn add prop-types
+// import propTypes from 'prop-types';
+/*
+    1.我们一般吧程序中的公共样式放到index.js导入，这样再其他文件中也可以使用了，
+      webpack会把所有的组件都编译在一起，index是主入口；
+    2.导入bootstrap，需要导入的不经过压缩处理的文件，否则无法编译，以后都使用ant
+*/ 
+import 'bootstrap/dist/css/bootstrap.css'  //bootstrap样式插件
+import '../src/static/less/todo.less'   //导入todo样式
+import '../src/static/css/common.css'
+//引入外部的js 需要加引号 引入
+// import ReactDom ,{render} from 'react-dom';
+// import Dialog from '../src/component/Dialog.js';
+// import '../src/text/self-jsx.js';
+// import ReactSwipe from 'react-swipe'; //引入的轮播图插件
+// import Vote from './component/Vote/Vote.js'  //投票案例
+// import Vote from './component/smileReduxCase/Vote/Vote.js'  //redux 封装myrudux案例
+// import Vote from './component/reduxVote/Vote.js'  //redux 安装redux案例
+// import VoteBase from '../src/component/textVote/VoteBase'
+// import VoteHandle from '../src/component/textVote/VoteHandle'
+// import Head from './component/Todo/Head'     //todo组件
+// import Body from './component/Todo/Body'     //todo组件
+// import Footer from './component/Todo/Footer' //todo组件
+// 使用react路由实现spa
+
+// 路由组件
 // import A from './component/routerText/A.js'
 // import B from './component/routerText/B.js'
 // import C from './component/routerText/C.js'
+import Nav from './component/RouteCRM/Nav'
+import Home from './routes/CRM/Home'
+import Custom from './routes/CRM/Custom'
+import Plan from './routes/CRM/Plan'
 let root = document.querySelector("#root")
 
-ReactDom.render(<HashRouter>
-    
-</HashRouter>,root)
+ReactDom.render(<Provider store = {store}>
+    <HashRouter>
+        <div>
+            {/* nav头部 */}
+            <Nav></Nav>
+            {/* 基于hash router展示不同的页面 */}
+            <Switch>
+                <Route path='/' exact component = {Home}></Route>
+                <Route path='/custom'  component = {Custom}></Route>
+                <Route path='/plan'  component = {Plan}></Route>
+                {/* 重定向首页 */}
+                <Redirect to='/?lx=unsafe'></Redirect>
+            </Switch>
+        </div>
+    </HashRouter>
+</Provider>,root)
 //react路由基础知识总结=========================================================
 // ReactDom.render(<HashRouter>
 //     <div>
