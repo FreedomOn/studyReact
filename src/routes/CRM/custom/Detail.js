@@ -1,18 +1,28 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import QS from 'qs'
+// import QS from 'qs'
 class Detail extends React.Component{
     constructor(props,context){
         super(props,context)
+        console.log(props)
         this.state = {}
     }
     render(){
         // 1.问号传参
-        let {location:{search},data} = this.props,
-         customID = QS.parse(search.substr(1)).id||0;
-         customID = parseFloat(customID)
-        console.log(search)
-        let item = data.find(item=>item.id ===customID)
+        // let {location:{search},data} = this.props,
+        //  customID = QS.parse(search.substr(1)).id||0;
+        //  customID = parseFloat(customID)
+        // console.log(search)
+        // 2.基于state传参
+        // let {location:{state},data} = this.props,
+        // customID = state || 0;
+        // customID = parseFloat(customID)
+        // 3.url地址参数
+        let {match:{params},data} = this.props,
+        customID = params.id || 0;
+        customID = parseFloat(customID)
+        console.log(params)
+        let item = data.find(item=>parseFloat(item.id) ===customID)
         if(!item) return '当前用户不存在'
         return <div>
             编号：{item.id}

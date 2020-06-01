@@ -56,13 +56,13 @@ import {NavLink,Link, withRouter} from 'react-router-dom'
 class Nav extends React.Component{
     constructor(props,context){
         super(props,context)
-        console.log(props)
+        // console.log(props)
         this.state = {
             count:1
         }
     }
     render(){
-        console.log(1)
+        // console.log(1)
         return <nav className='navbar navbar-default'>
             {/* logo */}
            <div className='container-fluid col-md-2' >

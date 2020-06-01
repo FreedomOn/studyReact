@@ -24,7 +24,7 @@ class Home extends React.Component{
            {/* 默认展示客户信息 用redirect 从custom来 定向到custom  list列表*/}
             <div className='col-md-10'>   
                 <Switch>
-                    <Route path='/custom/detail' component={Detail}></Route>
+                    <Route path='/custom/detail/:id' component={Detail}></Route>
                     <Route path='/custom/create' component={Create}></Route>
                     <Route path='/custom/list' component={List}></Route>
                     {/* 进入到客户管理页面，我们让其默认展示就是list区域 */}
